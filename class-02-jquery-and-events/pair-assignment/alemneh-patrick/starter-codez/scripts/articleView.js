@@ -29,6 +29,14 @@ articleView.populateFilters = function() {
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
     if ($(this).val()) {
+      $
+      var name = $(this).val()
+      $('article').each(function() {
+        var author = $(this).find('address a').text();
+          if (author == name) {
+            $('article').show();
+      }
+      });
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
@@ -71,6 +79,7 @@ articleView.setTeasers = function() {
   //       process any .read-on clicks that happen within child nodes.
 
 };
-
+articleView.populateFilters();
+articleView.handleAuthorFilter();
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
 $();
