@@ -33,32 +33,29 @@ articleView.handleAuthorFilter = function() {
       var $articles = $('article');
       console.log($articles);
       $articles.hide();
-      $('article[data-author = "'+$name+'"]').show();
-      // $('article').each(function(){
-      //   if ($('article').data("author") === $name){
-      //     this.show();
-      //   }
-      // $articles.find(.data('author', $name))
-
-
-      // $('article').each(function(){
-      //   this.hide();
+      $('article').each(function(){
+        if ($(this).data("author") === $name){
+          $(this).show();
+        }
+      })
+    } else {
+      $('article').show();
+    };
+    });
 
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
 
-    } else {
-      $articles.show();
       // $('article').each(function(){
       //   this.show();
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
 
+      $('#category-filter').val('');
     };
-  })
-    $('#category-filter').val('');
-  };
+
+
 
 
 articleView.handleCategoryFilter = function() {
