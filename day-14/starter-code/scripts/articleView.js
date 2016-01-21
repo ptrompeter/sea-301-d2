@@ -14,6 +14,8 @@
 
   // TODO: Stretch goal: Refactor to push this unique-check logic into the database.
   // Move any HTML into a template, in the HTML file where it belongs.
+
+  //This gets called in articleView.index().  It grabs the author value of the output of a handlebars template (which has been fed the output of the allAuthors() function), and appends the resulting names (checking for uniqueness) to the author filter.
   articleView.populateFilters = function() {
     var options,
       template = Handlebars.compile($('#option-template').text());
@@ -27,6 +29,7 @@
 
     // Example of using model method with async, SQL-based approach:
     // This approach is DOM-independent, since it reads from the DB directly.
+    //See the articleView.populateFilters, above.
     Article.allCategories(function(rows) {
       if ($('#category-filter option').length < 2) {
         $('#category-filter').append(
@@ -40,6 +43,8 @@
 
   // TODO: Combine both filter functions to a single event handler,
   // which simply redirects to a url like: /category/skateboarding or /author/Kevin+Bacon
+
+  //articleView.handleFilters is called in the aricleView.Index() method.  The resource variable defines whether the filter is referring authors or categories (based on an html element id).  It then calls a page.js function (a route, effecively), to direct the user to a sorted list (based on author or category).  Basically, it works like a redirect to '/author/(name)' or '/category/(name)'.
   articleView.handleFilters = function() {
     $('#filters').one('change', 'select', function() {
       resource = this.id.replace('-filter', '');
@@ -121,6 +126,9 @@
 
   // TODO: Refactor this method so it works with any number of articles.
   // Also, it should be idempotent, so it can be run multiple times with identical results.
+  //The articleView.index function is called by articleController.index() which is in turn called by a page function in routes.js. It first shows the article section then hides the siblings.
+  //If there is any articles present it will be removed, then iterate through the array of articles
+  //and append them to the articles section.
   articleView.index = function(articles) {
     $('#articles').show().siblings().hide();
 
@@ -131,6 +139,7 @@
 
     articleView.populateFilters();
     // TODO: Call the new unified filter handler function
+    //articleView.handleFilters() is called in articleView.index.  It now populates both the author filter and the category filter.
     articleView.handleFilters();
     // articleView.handleCategoryFilter();
     // articleView.handleAuthorFilter();
